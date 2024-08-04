@@ -1,5 +1,3 @@
-import logging
-
 from sqlalchemy.orm import sessionmaker, DeclarativeBase
 from sqlalchemy import create_engine
 from .config import load_config

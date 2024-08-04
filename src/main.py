@@ -2,6 +2,7 @@ import logging
 
 import uvicorn
 from fastapi import FastAPI
+
 from src.models import ParserConfig
 from src.database import Database
 from src.logger import setup_logger

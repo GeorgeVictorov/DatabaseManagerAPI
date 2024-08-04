@@ -1,4 +1,5 @@
 import logging
+
 from fastapi import Depends, HTTPException, APIRouter
 from sqlalchemy.orm import Session
 
@@ -23,7 +24,7 @@ def read_resources(db: Session = Depends(database.get_db)):
 
 @router.post("/add_new_config/", response_model=schemas.ResourceConfig)
 def create_resource(resource: schemas.ResourceConfigCreate, db: Session = Depends(database.get_db)):
-    db_resource = models.ParserConfig(name=resource.name, url=resource.url, destination=resource.destination)
+    db_resource = models.ParserConfig(name=resource.name, url=str(resource.url), destination=resource.destination)
     try:
         created_resource = crud.create_resource(db=db, resource=db_resource)
         logging.info(f"Resource created successfully: {created_resource}")

@@ -1,9 +1,9 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, HttpUrl
 
 
 class ResourceConfigBase(BaseModel):
     name: str
-    url: str
+    url: HttpUrl
     destination: str
 
 

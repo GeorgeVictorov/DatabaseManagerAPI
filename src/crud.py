@@ -1,4 +1,3 @@
-
 from sqlalchemy.orm import Session
 from typing import cast
 from .models import ParserConfig
