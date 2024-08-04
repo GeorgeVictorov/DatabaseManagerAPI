@@ -1,3 +1,4 @@
+
 from sqlalchemy.orm import Session
 from typing import cast
 from .models import ParserConfig
@@ -17,7 +18,7 @@ def create_resource(db: Session, resource: ParserConfig):
 
 
 def get_resources(db: Session):
-    return db.query(ParserConfig).all()
+    return db.query(ParserConfig).order_by(ParserConfig.resource_id.asc()).all()
 
 
 def delete_resource(db: Session, resource_id: int):

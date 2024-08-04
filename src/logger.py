@@ -26,4 +26,4 @@ def setup_logger(logs_folder='logs', log_file='api.log'):
     logger.addHandler(console_handler)
     logger.addHandler(file_handler)
 
-    return logger
+    logger.debug('Logger is set up with handlers.')

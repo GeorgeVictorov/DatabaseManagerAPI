@@ -18,5 +18,5 @@ class ResourceConfigUpdate(ResourceConfigBase):
 class ResourceConfig(ResourceConfigBase):
     resource_id: int
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
