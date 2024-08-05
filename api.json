@@ -1,0 +1,217 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "FastAPI",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/get_configs/": {
+      "get": {
+        "summary": "Read Resources",
+        "operationId": "read_resources_get_configs__get",
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved resources",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ResourceConfig"
+                  },
+                  "type": "array",
+                  "title": "Response Read Resources Get Configs  Get"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Could not validate credentials"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/add_new_config/": {
+      "post": {
+        "summary": "Create Resource",
+        "operationId": "create_resource_add_new_config__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResourceConfigCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Resource created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceConfig"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Could not validate credentials"
+          },
+          "409": {
+            "description": "Resource with the same name or URL already exists"
+          },
+          "422": {
+            "description": "Validation Error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/rm_config/{resource_id}": {
+      "delete": {
+        "summary": "Delete Resource",
+        "operationId": "delete_resource_rm_config__resource_id__delete",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "resource_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Resource Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceConfig"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Could not validate credentials"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "422": {
+            "description": "Validation Error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "summary": "Root",
+        "operationId": "root__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ResourceConfig": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "url": {
+            "type": "string",
+            "maxLength": 2083,
+            "minLength": 1,
+            "format": "uri",
+            "title": "Url"
+          },
+          "destination": {
+            "type": "string",
+            "title": "Destination"
+          },
+          "resource_id": {
+            "type": "integer",
+            "title": "Resource Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "url",
+          "destination",
+          "resource_id"
+        ],
+        "title": "ResourceConfig"
+      },
+      "ResourceConfigCreate": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "url": {
+            "type": "string",
+            "maxLength": 2083,
+            "minLength": 1,
+            "format": "uri",
+            "title": "Url"
+          },
+          "destination": {
+            "type": "string",
+            "title": "Destination"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "url",
+          "destination"
+        ],
+        "title": "ResourceConfigCreate"
+      }
+    },
+    "securitySchemes": {
+      "APIKeyHeader": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "access_token"
+      }
+    }
+  }
+}
