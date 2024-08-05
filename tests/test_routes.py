@@ -21,12 +21,6 @@ def test_read_items():
     assert response.status_code == 200
     assert response.json() == [
         {
-            "name": "sport_ru",
-            "url": "https://www.sport.ru/rssfeeds/news.rss",
-            "destination": "sport_news",
-            "resource_id": 1
-        },
-        {
             "name": "mk_ru",
             "url": "https://www.mk.ru/rss/sport/index.xml",
             "destination": "sport_news",
