@@ -7,7 +7,13 @@ from . import models, schemas, crud
 from .database import Database
 from .dependencies import get_api_key
 
-router = APIRouter(dependencies=[Depends(get_api_key)])
+router = APIRouter(
+    dependencies=[Depends(get_api_key)],
+    responses={
+        status.HTTP_403_FORBIDDEN: {"description": "Could not validate credentials"},
+        status.HTTP_500_INTERNAL_SERVER_ERROR: {"description": "Internal server error"}
+    }
+)
 database = Database()
 
 
@@ -15,9 +21,7 @@ database = Database()
     "/get_configs/",
     response_model=list[schemas.ResourceConfig],
     responses={
-        status.HTTP_200_OK: {"description": "Successfully retrieved resources"},
-        status.HTTP_403_FORBIDDEN: {"description": "Could not validate credentials"},
-        status.HTTP_500_INTERNAL_SERVER_ERROR: {"description": "Internal server error"}
+        status.HTTP_200_OK: {"description": "Successfully retrieved resources"}
     }
 )
 def read_resources(db: Session = Depends(database.get_db)):
@@ -36,10 +40,8 @@ def read_resources(db: Session = Depends(database.get_db)):
     status_code=status.HTTP_201_CREATED,
     responses={
         status.HTTP_201_CREATED: {"description": "Resource created successfully"},
-        status.HTTP_403_FORBIDDEN: {"description": "Could not validate credentials"},
         status.HTTP_409_CONFLICT: {"description": "Resource with the same name or URL already exists"},
-        status.HTTP_422_UNPROCESSABLE_ENTITY: {"description": "Validation Error"},
-        status.HTTP_500_INTERNAL_SERVER_ERROR: {"description": "Internal server error"},
+        status.HTTP_422_UNPROCESSABLE_ENTITY: {"description": "Validation Error"}
     }
 )
 def create_resource(resource: schemas.ResourceConfigCreate, db: Session = Depends(database.get_db)):
@@ -64,7 +66,6 @@ def create_resource(resource: schemas.ResourceConfigCreate, db: Session = Depend
         status.HTTP_403_FORBIDDEN: {"description": "Could not validate credentials"},
         status.HTTP_404_NOT_FOUND: {"description": "Resource not found"},
         status.HTTP_422_UNPROCESSABLE_ENTITY: {"description": "Validation Error"},
-        status.HTTP_500_INTERNAL_SERVER_ERROR: {"description": "Internal server error"},
     }
 )
 def delete_resource(resource_id: int, db: Session = Depends(database.get_db)):
