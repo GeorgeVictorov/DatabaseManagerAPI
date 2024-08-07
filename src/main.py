@@ -1,6 +1,4 @@
 import logging
-
-import uvicorn
 from fastapi import FastAPI
 
 from src.models import ParserConfig
@@ -11,7 +9,7 @@ from src.resources import router
 
 def get_app():
     application = FastAPI()
-    application.include_router(router)
+    application.include_router(router, tags=['database'])
     return application
 
 
@@ -38,5 +36,3 @@ if __name__ == "__main__":
     except Exception as e:
         logging.error(f'Error initializing tables: {e}')
         exit(1)
-
-    uvicorn.run("main:app", host="127.0.0.1", port=8000, log_level="info", reload=False)

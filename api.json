@@ -7,6 +7,9 @@
   "paths": {
     "/get_configs/": {
       "get": {
+        "tags": [
+          "database"
+        ],
         "summary": "Read Resources",
         "operationId": "read_resources_get_configs__get",
         "responses": {
@@ -40,6 +43,9 @@
     },
     "/add_new_config/": {
       "post": {
+        "tags": [
+          "database"
+        ],
         "summary": "Create Resource",
         "operationId": "create_resource_add_new_config__post",
         "requestBody": {
@@ -66,14 +72,14 @@
           "403": {
             "description": "Could not validate credentials"
           },
+          "500": {
+            "description": "Internal server error"
+          },
           "409": {
             "description": "Resource with the same name or URL already exists"
           },
           "422": {
             "description": "Validation Error"
-          },
-          "500": {
-            "description": "Internal server error"
           }
         },
         "security": [
@@ -85,6 +91,9 @@
     },
     "/rm_config/{resource_id}": {
       "delete": {
+        "tags": [
+          "database"
+        ],
         "summary": "Delete Resource",
         "operationId": "delete_resource_rm_config__resource_id__delete",
         "security": [
@@ -117,14 +126,14 @@
           "403": {
             "description": "Could not validate credentials"
           },
+          "500": {
+            "description": "Internal server error"
+          },
           "404": {
             "description": "Resource not found"
           },
           "422": {
             "description": "Validation Error"
-          },
-          "500": {
-            "description": "Internal server error"
           }
         }
       }
