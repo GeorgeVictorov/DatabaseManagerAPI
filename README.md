@@ -71,3 +71,5 @@ DatabaseManagerAPI
     └── test_routes.py
 
 ```
+
+<img width="839" alt="Screenshot 2024-08-13 at 13 14 54" src="https://github.com/user-attachments/assets/f9daf566-d96e-4eed-9216-bd29888a9ee6">
