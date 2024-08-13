@@ -52,6 +52,7 @@ DatabaseManagerAPI
 ├── README.md
 ├── api.json
 ├── requirements.txt
+├── run.py
 ├── src
 │   ├── __init__.py
 │   ├── config.py
@@ -60,11 +61,16 @@ DatabaseManagerAPI
 │   ├── dependencies.py
 │   ├── logger.py
 │   ├── logs
-│   │   └── api.log
+│   │   ├── api.log
+│   │   └── api.log.2024-07-30
 │   ├── main.py
 │   ├── models.py
 │   ├── resources.py
 │   └── schemas.py
+├── static
+│   ├── index.html
+│   ├── scripts.js
+│   └── styles.css
 └── tests
     ├── __init__.py
     ├── test_crud.py
