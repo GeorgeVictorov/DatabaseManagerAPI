@@ -1,5 +1,10 @@
 import logging
+from typing import cast
+
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
 from src.models import ParserConfig
 from src.database import Database
@@ -9,17 +14,27 @@ from src.resources import router
 
 def get_app():
     application = FastAPI()
+
+    application.add_middleware(
+        cast("_MiddlewareClass[P]", CORSMiddleware),
+        allow_origins=["*"],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+
     application.include_router(router, tags=['database'])
+    application.mount("/static", StaticFiles(directory="static"), name="static")
+
+    # Serve index.html at the root path
+    @application.get("/", include_in_schema=False)
+    async def read_index():
+        return FileResponse("static/index.html")
+
     return application
 
 
 app = get_app()
-
-
-@app.get("/")
-async def root():
-    return 'Novorossiysk 1968'
-
 
 if __name__ == "__main__":
     try:
